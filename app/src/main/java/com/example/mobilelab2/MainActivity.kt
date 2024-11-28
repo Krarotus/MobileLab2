@@ -18,69 +18,57 @@ class MainActivity : AppCompatActivity() {
     val OFFSET_KEY = "offset"
     val RUNNING_KEY = "running"
     val BASE_KEY = "base"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Получение ссылки на секундомер
-        stopwatch = findViewById<Chronometer>(R.id.stopwatch)
+        stopwatch = findViewById(R.id.stopwatch)
 
-        //Восстановление предыдущего состояния
-        if (SavedInstanceState !=null) {
+        if (savedInstanceState != null) {
             offset = savedInstanceState.getLong(OFFSET_KEY)
             running = savedInstanceState.getBoolean(RUNNING_KEY)
-            if(running){
+            if (running) {
                 stopwatch.base = savedInstanceState.getLong(BASE_KEY)
                 stopwatch.start()
-            }else setBaseTime()
-
+            } else setBaseTime()
         }
 
-
-
-        val startButton = findViewById<Button>(R.id.start_button)
-        startButton.setOnClickListener{
-            if(!running){
+        findViewById<Button>(R.id.start_button).setOnClickListener {
+            if (!running) {
                 setBaseTime()
                 stopwatch.start()
-                running=true
+                running = true
             }
         }
 
-        val pauseButton = findViewById<Button>(R.id.pause_button)
-        pauseButton.setOnClickListener{
-            if (running){
+        findViewById<Button>(R.id.pause_button).setOnClickListener {
+            if (running) {
                 saveOffset()
                 stopwatch.stop()
                 running = false
             }
         }
 
-
-
-        val resetButton = findViewById<Button>(R.id.reset_button)
-        resetButton.setOnClickListener{
+        findViewById<Button>(R.id.reset_button).setOnClickListener {
             offset = 0
             setBaseTime()
         }
+    }
 
-        fun onSaveInstanceState(savedInstanceState: Bundle) {
-            savedInstanceState.putLong(OFFSET_KEY, offset)
-            savedInstanceState.putBoolean(RUNNING_KEY, running)
-            savedInstanceState.putLong(BASE_KEY, stopwatch.base)
-            super.onSaveInstanceState(savedInstanceState)
-        }
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        savedInstanceState.putLong(OFFSET_KEY, offset)
+        savedInstanceState.putBoolean(RUNNING_KEY, running)
+        savedInstanceState.putLong(BASE_KEY, stopwatch.base)
+        super.onSaveInstanceState(savedInstanceState)
+    }
 
+    fun setBaseTime() {
+        stopwatch.base = SystemClock.elapsedRealtime() - offset
+    }
 
-        fun setBaseTime(){
-            stopwatch.base = SystemClock.elapsedRealtime() - offset
-        }
-        fun saveOffset(){
-            offset = SystemClock.elapsedRealtime() - stopwatch.base
-        }
-
-
-
-
+    fun saveOffset() {
+        offset = SystemClock.elapsedRealtime() - stopwatch.base
     }
 }

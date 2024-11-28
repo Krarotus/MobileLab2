@@ -9,32 +9,38 @@
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
     >
+
     <Chronometer
+        android:id="@+id/stopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/stopwatch"
-        android:textSize="56sp" />
+        android:textSize="56sp"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="48dp" />
 
     <Button
+        android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start"
-        android:id="@+id/start_button"
-        />
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="161dp" />
 
     <Button
+        android:id="@+id/pause_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pause"
-        android:id="@+id/pause_button"
-        />
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="240dp" />
 
     <Button
+        android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reset"
-        android:id="@+id/reset_button"
-        />
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="319dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
